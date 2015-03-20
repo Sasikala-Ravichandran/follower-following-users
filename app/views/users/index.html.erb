@@ -1,0 +1,41 @@
+<h4>Followings:</h4>
+
+<ul>
+<% @users.each do |user| %>
+   <% unless user.name.eql?(current_user.name) %>
+		<% if current_user.following.include?(user) %> 
+		    <%= user.name  %>
+		    <%= button_to "Unfollow", relation_path(:id => user.id), :method => :delete %><br/>
+	    <% end %>
+	<% end %>
+<% end %>
+<ul/>
+
+<h4>Followers: </h4>
+
+<ul>
+<% @users.each do |user| %>
+    <% unless user.name.eql?(current_user.name) %>
+		<% if current_user.followers.include?(user) %> 
+		   	<%= user.name  %><br/>
+		<% end %>
+	 <% end %>
+<% end %>
+<ul/>
+ 
+<h4>List of Users to follow</h4>
+
+<ul>
+<% @users.each do |user| %>
+   <% unless user.name.eql?(current_user.name) %>
+       <% unless current_user.following.include?(user) %>
+			<li><%= user.name  %><li/>
+			<%= button_to "Follow", relations_path(:followed_id => user.id)  %><br/>
+   		<% end %>
+	 <% end %>
+<% end %>
+<ul/>
+
+
+<%= link_to "logout", logout_path%>
+<%= link_to "show_me", current_user%>
